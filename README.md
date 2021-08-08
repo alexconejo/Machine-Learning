@@ -1,6 +1,6 @@
 # Machine Learning
 En este repositorio se encuentran mis archivos propios realizados al seguir el "Curso completo de Machine Learning: Data Science en Python" de Udemy.
-![image](https://www.google.com/imgres?imgurl=https%3A%2F%2Fmiro.medium.com%2Fmax%2F1400%2F1*LtjX9ze971QwTHa7GKO3pA.gif&imgrefurl=https%3A%2F%2Fbootcampai.medium.com%2Fparadigmas-del-machine-learning-f112788d67d1&tbnid=DzNMOjkZBE9_XM&vet=12ahUKEwj72777taLyAhVw1eAKHUB7BYgQMygCegUIARDIAQ..i&docid=lo8B90vhXkuD0M&w=767&h=356&itg=1&q=machine%20learning%20%20gif&ved=2ahUKEwj72777taLyAhVw1eAKHUB7BYgQMygCegUIARDIAQ)
+![image](https://www.google.com/imgres?imgurl=https%3A%2F%2Fmiro.medium.com%2Fmax%2F1400%2F1*LtjX9ze971QwTHa7GKO3pA.gif&imgrefurl=https%3A%2F%2Fbootcampai.medium.com%2Fparadigmas-del-machine-learning-f112788d67d1&tbnid=DzNMOjkZBE9_XM&vet=12ahUKEwj72777taLyAhVw1eAKHUB7BYgQMygCegUIARDIAQ..i&docid=lo8B90vhXkuD0M&w=767&h=356&itg=1&q=machine%20learning%20%20gif&ved=2ahUKEwj72777taLyAhVw1eAKHUB7BYgQMygCegUIARDIAQ.gif)
 
 ## Conocimientos esperados
 * Elaborar modelos robustos de Machine Learning
