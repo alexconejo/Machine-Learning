@@ -1,6 +1,6 @@
 # Machine Learning
 En este repositorio se encuentran mis archivos propios realizados al seguir el "Curso completo de Machine Learning: Data Science en Python" de Udemy.
-![Alt Text](https://i.gifer.com/OyGx.gif)
+![Alt Text](https://ichi.pro/assets/images/max/724/0*PuscwCsUr09xZ0SJ.gif)
 
 ## Conocimientos esperados
 * Elaborar modelos robustos de Machine Learning
