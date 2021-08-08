@@ -1,5 +1,6 @@
 # Machine Learning
 En este repositorio se encuentran mis archivos propios realizados al seguir el "Curso completo de Machine Learning: Data Science en Python" de Udemy.
+
 ![image](https://github.com/alexconejo/Machine-Learning/blob/main/1*LtjX9ze971QwTHa7GKO3pA.gif)
 
 ## Conocimientos esperados
