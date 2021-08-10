@@ -95,8 +95,10 @@ np.random.shuffle(a)
 column_list = data.columns.values.tolist()
 np.random.choice(column_list) # Nos coge un valor random de la lista de columnas
 
-# Seed
-np.random.seed(2018) #Número random para fijar la semilla
+# Seed: establecer una semilla es importante para mantener los números random en futuras ejecuciones
+np.random.seed(2021) #Número random para fijar la semilla
 for i in range(5):
-    print(np.random.random())
+    print(np.random.random()) #Los números random siempre serán los mismos en todas las ejecuciones
+    
+ 
 
