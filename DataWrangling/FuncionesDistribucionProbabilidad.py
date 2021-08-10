@@ -8,7 +8,7 @@ Created on Tue Aug 10 01:18:39 2021
 
 # Funciones de distribución de probabilidades
 
-
+import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -45,3 +45,58 @@ plt.hist(data3)
 plt.show()
 
 data4 = np.random.randn(2,4)
+
+
+# La simulación de Monte Carlo
+''' Generamos dos números aleatorios uniformes x e y entre 0 y 1 en total 1000 veces
+
+   Calcularemos x² + y²
+       Si el valor es inferior a 1 -> estamos dentro del círculo
+       Si es valor es superior a 1 -> estamos fuera del círculo
+       
+    Calculamos el número total de veces que están dentro del círuclo y lo dividimos entre el número total
+    de intentos para obtener una aproximación de la probabilidad de caer dentro del círculo.
+    
+    Usamos dicha probabilidad para aproximar el valor de pi.
+    
+    Repetimos el experimento un número suficiente de veces (100 p.ej), para obtener diferentes aproximaciones de pi.
+    Calculamos el promedio de los 100 experimentos anteriores para dar un valor final de pi.'''
+
+def pi_montecarlo (n, n_exp):
+    pi_avg = 0
+    pi_value_list = []
+    
+    for i in range (n_exp):
+        value = 0
+        x = np.random.uniform(0,1,n).tolist()
+        y = np.random.uniform(0,1,n).tolist()
+        for j in range (n):
+            z = x[j] * x[j] + y[j] * y[j]
+            if z <= 1:
+                value += 1 #Hemos caido dentro del círculo
+        float_value = float(value)
+        pi_value = float_value * 4 / n # Probabilidad pi/4 dividido entre el número de veces que lo hemos hecho
+        pi_value_list.append(pi_value)
+        pi_avg += pi_value
+    
+    pi = pi_avg / n_exp #Promedio de 100 valores
+    print(pi)
+    fig = plt.plot(pi_value_list)
+    plt.show()
+    return (pi, fig)
+
+pi_montecarlo(10000, 200) # Simulación de Montecarlo con 10000 puntos dentro o fuera del círculo y 200 experimentos
+    
+# Generación de Dummy Data Sets 
+n  = 10000
+data5 = pd.DataFrame(     # Creación de DataFrame con 3 variables de n filas de cada columna
+        {
+                'A' : np.random.randn(n),             # Distribución normal estándar
+                'B' : 1.5 + 2.5 * np.random.randn(n), # Distribución normal con nota media de 1.5 y desviación de 2.5
+                'C' : np.random.uniform(5, 32, n)     # Distribución uniforme entre 5 y 32
+        }
+)
+   
+data5.describe()   
+plt.hist(data5["C"]) 
+plt.show()

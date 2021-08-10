@@ -100,5 +100,3 @@ np.random.seed(2021) #Número random para fijar la semilla
 for i in range(5):
     print(np.random.random()) #Los números random siempre serán los mismos en todas las ejecuciones
     
- 
-
