@@ -100,3 +100,14 @@ data5 = pd.DataFrame(     # Creación de DataFrame con 3 variables de n filas de
 data5.describe()   
 plt.hist(data5["C"]) 
 plt.show()
+
+data6 = pd.read_csv("../datasets/customer-churn-model/Customer Churn Model.txt")
+column_names = data6.columns.values.tolist()
+n_columns = len(column_names)
+new_data = pd.DataFrame(
+        {
+                'Column Name' : column_names,
+                'A' : np.random.randn(n_columns),
+                'B' : np.random.uniform(0,1,n_columns)               
+        }, index = range (42,42+n_columns) # Así el índice va desde 42 hasta 62
+)
