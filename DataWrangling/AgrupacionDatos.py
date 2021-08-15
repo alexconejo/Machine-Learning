@@ -10,6 +10,9 @@ Created on Tue Aug 10 23:04:22 2021
 
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+import sklearn
 
 gender = ["Male", "Female"]
 income = ["Poor", "Middle Class", "Rich"]
@@ -73,7 +76,7 @@ double_group.aggregate(
         {
                 'Income' : np.sum,
                 'Age' : np.mean,
-                'Height': np.std #Promedio
+                'Height': np.std #Desviación típica
                 })
     
 double_group.aggregate( # Así vemos
@@ -82,8 +85,51 @@ double_group.aggregate( # Así vemos
                 'Height': lambda h: np.mean(h)/np.std(h)
                 })
     
-double_group.aggregate([np.sum, np.mean, np.std]) # Así aplicamos a todas las columnas la suma, media y promedio
+double_group.aggregate([np.sum, np.mean, np.std]) # Así aplicamos a todas las columnas la suma, media y la desviación típica
 double_group.aggregate([lambda x: np.mean(x)/ np.std(x)])
 
 # Filtrado de datos
-double_group["Age"].filter(lambda x: x.sum() > 2400) # Así va a filtrar elementos donde la suma de su edad sea mayor a 2400
+double_group["Age"].filter(lambda x: x.sum() > 2400) # Así va a filtrar elementos de los grupos cuya suma de edades supera los 2400
+
+#Transformación de variables
+zscore = lambda x: (x - np.mean(x))/np.std(x) #Función de la distribución normal 
+z_group = double_group.transform(zscore) #Se puede hacer tanto a un dataFrame ordenado o desordenado como a una columna
+'''plt.hist(z_group["Age"])
+plt.show()'''
+
+fill_na_mean = lambda x: x.fillna(np.mean(x)) # Así rellenamos con la media los huecos sin valor
+double_group.transform(fill_na_mean)
+
+#Operaciones diversas muy útiles
+double_group.head(1) #Primera fila de cada una de las colecciones de datos
+double_group.tail(1) #Última fila de cada una de las colecciones de datos
+double_group.nth(32) #Elemento trigesimo segundo de cada una de las filas. Asegurarse antes de que existe
+
+data_sorted = data.sort_values(["Age", "Income"])
+age_grouped = data_sorted.groupby("Gender")
+age_grouped.head(1)
+
+
+# Conjunto de entrenamiento y conjunto de testing
+data = pd.read_csv("../datasets/customer-churn-model/Customer Churn Model.txt")
+
+# Dividir utilizando la distribución normal
+a = np.random.randn(len(data))
+perc_80 = np.percentile(a, 80) #Calculamos el percentil 80
+check = (a<perc_80) # Creamos el vector check
+check # Así le asignamos un 80% al training y un 20% al testing
+plt.hist(check*1) # Al multiplicar el resultado por 1 se cambia el resultado de booleanos a binarios
+plt.show()
+
+training = data[check]
+testing = data[~check]
+
+# Librería sklearn - Mucho más sencillo
+train, test = train_test_split(data, test_size = 0.2) # 20 % usado para testing
+
+# Usando una función de Shuffle
+data = sklearn.utils.shuffle(data)
+cut_id = int(0.75 * len(data)) # 75 % para entrenar y 25 % para testear 
+train_data = data[:cut_id]
+test_data = data[cut_id+1:]
+
