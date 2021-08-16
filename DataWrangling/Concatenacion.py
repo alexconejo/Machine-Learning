@@ -68,3 +68,19 @@ for i in range(1, len(list_csv)):
     current_csv = pd.read_csv(filepath + list_csv[i])
     concat_csv = pd.concat((concat_csv, current_csv), axis = 0)
 
+# Joins de datasets
+filepath = "../datasets/athletes/"
+data_main = pd.read_csv(filepath + "Medals.csv")
+a = data_main["Athlete"].unique().tolist() #Con unique() nos quitamos los repetidos
+
+data_country = pd.read_csv(filepath + "Athelete_Country_Map.csv")
+# data_country = pd.read_csv(filepath + "Athelete_Country_Map.csv", encoding = "ISO-8859-1") 
+
+data_country[data_country["Athlete"] == "Aleksandar Ciric"] # Aleksandar juega con dos paises diferentes
+
+data_sports = pd.read_csv(filepath + "Athelete_Sports_Map.csv")
+len(data_sports) # Hay algunos deportistas que ha participado en dos deportes diferentes
+
+data_sports[(data_sports["Athlete"] == "Chen Jing") |
+            (data_sports["Athlete"] == "Richard Thompson") |
+            (data_sports["Athlete"] == "Matt Ryan")]
