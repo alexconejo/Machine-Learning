@@ -79,7 +79,7 @@ double_group.aggregate(
                 'Height': np.std #Desviación típica
                 })
     
-double_group.aggregate( # Así vemos
+double_group.aggregate( # 
         {
                 'Age' : np.mean,
                 'Height': lambda h: np.mean(h)/np.std(h)
