@@ -17,4 +17,4 @@ En este repositorio se encuentran mis archivos propios realizados al seguir el "
 Cada carpeta es una sección donde se muestran los conocimientos aprendidos.
 * Datasets: esta carpeta contiene los distintos datasets donde vamos a aplicar nuestros conocimientos adquiridos durante el curso.
 * Data Cleaning: contiene tres archivos donde se muestran distintas técnicas de limpieza de datos para su mejor manejo y análisis.
-* Data Wrangling: contiene varios archivos distintas operaciones sobre los datos que manejamos.
+* Data Wrangling: contiene varios archivos distintas operaciones sobre el manejo de datos.
