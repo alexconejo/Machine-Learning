@@ -11,6 +11,9 @@ Created on Sun Aug 15 16:56:55 2021
 
 import pandas as pd
 import os
+from IPython.display import Image
+import numpy as np
+
 
 red_wine = pd.read_csv("../datasets/wine/winequality-red.csv", sep =";") #Están separados por ;
 
@@ -71,7 +74,7 @@ for i in range(1, len(list_csv)):
 # Joins de datasets
 filepath = "../datasets/athletes/"
 data_main = pd.read_csv(filepath + "Medals.csv")
-a = data_main["Athlete"].unique().tolist() #Con unique() nos quitamos los repetidos
+athletes_unique = data_main["Athlete"].unique().tolist() #Con unique() nos quitamos los repetidos
 
 data_country = pd.read_csv(filepath + "Athelete_Country_Map.csv")
 # data_country = pd.read_csv(filepath + "Athelete_Country_Map.csv", encoding = "ISO-8859-1") 
@@ -84,3 +87,70 @@ len(data_sports) # Hay algunos deportistas que ha participado en dos deportes di
 data_sports[(data_sports["Athlete"] == "Chen Jing") |
             (data_sports["Athlete"] == "Richard Thompson") |
             (data_sports["Athlete"] == "Matt Ryan")]
+
+# Concatenación de varios DataFrames
+# Hacemos la combinación del data_main y de data_country 
+data_country_duplicate = data_country.drop_duplicates(subset = "Athlete")
+len(data_country_duplicate) == len(athletes_unique) #Comprobamos que tenemos las mismas filas y por lo tanto no hay duplicados
+
+data_main_country = pd.merge(left = data_main, right = data_country,
+                             left_on = "Athlete", right_on = "Athlete") # Se produce un innerjoin por lo que se duplican las medallas
+
+# Aleksandar está duplicado debido al cambio de nombre en el pais
+data_main_country[data_main_country["Athlete"] == "Aleksandar Ciric"]
+
+data_main_country_new = pd.merge(left = data_main, right = data_country_duplicate,
+                             left_on = "Athlete", right_on = "Athlete") 
+
+data_main_country_new[data_main_country_new["Athlete"] == "Aleksandar Ciric"]
+
+# Vamos a quitar los duplicados del data_sports
+data_sports_duplicate = data_sports.drop_duplicates(subset = "Athlete")
+
+len(data_sports_duplicate) == len(athletes_unique)
+data_final = pd.merge(left = data_main_country_new, right = data_sports_duplicate,
+                      left_on = "Athlete", right_on = "Athlete")
+
+len(data_final)
+
+# Eliminación de datos
+out_athletes = np.random.choice(data_main["Athlete"],size = 6, replace = False)# Atletas que vamos a eliminar
+data_country_dlt = data_country_duplicate[(~data_country_duplicate["Athlete"].isin(out_athletes)) &
+                                          (data_country_duplicate["Athlete"] != "Michael Phelps")]
+
+data_sports_dlt = data_sports_duplicate[(~data_sports_duplicate["Athlete"].isin(out_athletes)) &
+                                          (data_sports_duplicate["Athlete"] != "Michael Phelps")]
+
+data_main_dlt = data_main[(~data_main["Athlete"].isin(out_athletes)) &
+                          (data_main["Athlete"] != "Michael Phelps")]
+
+## Inner Join devuelve un df con las filas que tienen valor tanto en el primer como en el segundo df
+Image(filename = "../resources/inner-join.png")
+# Data_main contiene toda la info
+# Data_country_dlt le falta la info de 7 atletas
+merged_inner = pd.merge(left = data_main, right = data_country_dlt, how = "inner", left_on = "Athlete", right_on = "Athlete")
+
+## Left Join devuelve un df con las filas que tienen valor en el dataset de la izq sin importar si tienen correspondencia con el de la der
+Image(filename = "../resources/left-join.png")
+merged_left = pd.merge(left = data_main, right = data_country_dlt, how = "left", left_on = "Athlete", right_on = "Athlete")
+
+## Right Join devuelve un df con las filas que tienen valor en el dataset de la der sin importar si tienen correspondencia con el de la izq
+Image(filename = "../resources/right-join.png")
+merged_right = pd.merge(left = data_main, right = data_country_dlt, how ="right", left_on = "Athlete", right_on = "Athlete")
+
+## Outter Join devuelve un df con todas las filas de ambos df
+Image(filename = "../resources/outer-join.png")
+data_country_dlt = data_country_dlt.append(
+        {
+                'Athlete': "Alex Conejo",
+                'Country': "España"
+                }, ignore_index =True)
+
+data_country_dlt.tail()
+
+merged_outer = pd.merge(left = data_main, right = data_country_dlt, how = "outer", left_on = "Athlete", right_on = "Athlete")
+
+merged_outer.tail()
+
+
+
